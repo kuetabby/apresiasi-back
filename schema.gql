@@ -1,0 +1,140 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type BalanceDTO {
+  id: String!
+  tanggal: DateTime!
+  description: String!
+  jumlah: Float!
+}
+
+input BalanceInput {
+  description: String!
+  jumlah: Float!
+}
+
+type BankDetailsDTO {
+  id: String!
+  name: String!
+  bank_type: Float!
+  no_rekening: Float!
+  isApproved: Boolean!
+  total_balance: Float
+}
+
+input BankDetailsInput {
+  name: String!
+  bank_type: Float!
+  no_rekening: Float!
+}
+
+input BankDetailsInputUpdate {
+  name: String
+  bank_type: Float
+  no_rekening: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type GenderDTO {
+  id: String!
+  gender: String!
+}
+
+input GenderInput {
+  gender: String!
+}
+
+input LoginInput {
+  name: String!
+  email: String!
+}
+
+type LoginResponseDTO {
+  accessToken: String!
+}
+
+type Mutation {
+  loginUser(data: LoginInput!): LoginResponseDTO!
+  createTipReceived(data: TipReceivedInput!): TipReceivedDTO!
+  createPost(data: PostInput!): PostDTO!
+  updatePost(data: PostInputUpdate!): PostDTO!
+  deletePost(id: String!): PostDTO!
+  createBalance(data: BalanceInput!): BalanceDTO!
+  createBankDetails(data: BankDetailsInput!): BankDetailsDTO!
+  updateBankDetails(data: BankDetailsInputUpdate!): BankDetailsDTO!
+  createGender(data: GenderInput!): GenderDTO!
+}
+
+type PostDTO {
+  id: String!
+  tanggal: DateTime!
+  title: String!
+  announcement: String!
+}
+
+input PostInput {
+  title: String!
+  announcement: String!
+}
+
+input PostInputUpdate {
+  title: String
+  announcement: String
+}
+
+type Query {
+  getUser: UserEntity!
+  getAllUser: [UserDTO!]!
+  getAllTipReceived: [TipReceivedDTO!]!
+  getTipReceived(id: String!): TipReceivedDTO!
+  getPost(id: String!): PostDTO!
+  getAllPost: [PostDTO!]!
+  getAllBalance: [BalanceDTO!]!
+  getBalance(id: String!): BalanceDTO!
+  getBankDetails(id: String!): BankDetailsDTO!
+  getAllGender: [GenderDTO!]!
+  getGender(id: String!): GenderDTO!
+}
+
+type TipReceivedDTO {
+  id: String!
+  tanggal: DateTime!
+  supporter: String!
+  pesan_dukungan: String!
+  nominal_dukungan: Float!
+  aksi: String!
+  total_dukungan: Float!
+}
+
+input TipReceivedInput {
+  supporter: String!
+  pesan_dukungan: String!
+  nominal_dukungan: Float!
+  aksi: String!
+  total_dukungan: Float!
+}
+
+type UserDTO {
+  id: String!
+  name: String
+  gender: Float
+  email: String
+  address: String
+  profile_img: String
+  username: String
+  judul: String
+  description: String
+  target_dana: Float
+  category: Float
+  cover_img: String
+  is_page_active: Float
+}
+
+type UserEntity {
+  id: String!
+}
