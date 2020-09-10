@@ -2,18 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type BalanceDTO {
-  id: String!
-  tanggal: DateTime!
-  description: String!
-  jumlah: Float!
-}
-
-input BalanceInput {
-  description: String!
-  jumlah: Float!
-}
-
 type BankDetailsDTO {
   id: String!
   name: String!
@@ -60,14 +48,13 @@ type LoginResponseDTO {
 
 type Mutation {
   loginUser(data: LoginInput!): LoginResponseDTO!
-  createTipReceived(data: TipReceivedInput!): TipReceivedDTO!
   createPost(data: PostInput!): PostDTO!
   updatePost(data: PostInputUpdate!): PostDTO!
   deletePost(id: String!): PostDTO!
-  createBalance(data: BalanceInput!): BalanceDTO!
   createBankDetails(data: BankDetailsInput!): BankDetailsDTO!
   updateBankDetails(data: BankDetailsInputUpdate!): BankDetailsDTO!
   createGender(data: GenderInput!): GenderDTO!
+  createTransaction(data: TransaksiInput!): TransaksiEntity!
 }
 
 type PostDTO {
@@ -90,33 +77,34 @@ input PostInputUpdate {
 type Query {
   getUser: UserEntity!
   getAllUser: [UserDTO!]!
-  getAllTipReceived: [TipReceivedDTO!]!
-  getTipReceived(id: String!): TipReceivedDTO!
   getPost(id: String!): PostDTO!
   getAllPost: [PostDTO!]!
-  getAllBalance: [BalanceDTO!]!
-  getBalance(id: String!): BalanceDTO!
   getBankDetails(id: String!): BankDetailsDTO!
   getAllGender: [GenderDTO!]!
   getGender(id: String!): GenderDTO!
 }
 
-type TipReceivedDTO {
+type TransaksiEntity {
   id: String!
-  tanggal: DateTime!
-  supporter: String!
+  payment_tanggal: DateTime!
+  payment_amount: Float!
+  customer_name: String!
   pesan_dukungan: String!
-  nominal_dukungan: Float!
-  aksi: String!
-  total_dukungan: Float!
+  email: String!
+  url_pembayaran: String!
+  status: String!
+  recipient: UserEntity
+  recipient_id: String!
+  duitku_reference: String!
 }
 
-input TipReceivedInput {
-  supporter: String!
+input TransaksiInput {
+  payment_amount: Float!
+  customer_name: String!
   pesan_dukungan: String!
-  nominal_dukungan: Float!
-  aksi: String!
-  total_dukungan: Float!
+  email: String!
+  recipient_id: String!
+  phoneNumber: String!
 }
 
 type UserDTO {
@@ -133,8 +121,22 @@ type UserDTO {
   category: Float
   cover_img: String
   is_page_active: Float
+  balance: Float
 }
 
 type UserEntity {
   id: String!
+  email: String!
+  name: String!
+  gender: String
+  address: String
+  profile_img: String
+  username: String
+  judul: String
+  description: String
+  target_dana: Float
+  category: Float
+  cover_img: String
+  is_page_active: Float
+  balance: Float!
 }

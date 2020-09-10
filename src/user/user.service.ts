@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository, DeleteResult } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import * as jwt from 'jsonwebtoken';
 
@@ -39,6 +39,15 @@ export class UserService {
 
   findAll(): Promise<UserEntity[]> {
     return this.userRepository.find();
+  }
+
+  async sumBalance(userId: string, balance: number): Promise<void> {
+    const user = await this.userRepository.findOne(userId);
+    if (!user) {
+      throw NotFoundException;
+    }
+    user.balance = user.balance + balance;
+    await user.save();
   }
 
   // async update(data: UserDTO): Promise<UserEntity> {

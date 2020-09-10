@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+   apreasi_db:
+     container_name: apreasi_db
+     restart: always
+     image: postgres:12.1-alpine
+     ports:
+       - "5432:5432"
+     environment:
+       POSTGRES_PASSWORD: kuetabby
+       POSTGRES_USER: postgres
+       POSTGRES_DB: apresiasi

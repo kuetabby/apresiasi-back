@@ -4,9 +4,16 @@ import {
   CreateDateColumn,
   Column,
   BaseEntity,
-  // OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
+import { UserEntity } from 'user/user.entity';
+
+export enum TransaksiStatus {
+  PENDING = 'PENDING',
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+}
 
 @ObjectType()
 @Entity('Transaksi')
@@ -17,31 +24,42 @@ export class TransaksiEntity extends BaseEntity {
 
   @Column()
   @CreateDateColumn()
+  @Field(() => Date)
   payment_tanggal: Date;
 
-  @Column('numeric', {})
-  payment_amount: string;
+  @Column('int')
+  @Field(() => Number)
+  payment_amount: number;
 
   @Column('varchar', { length: 500 })
-  payment_method: string;
-
-  @Column('varchar', { length: 500 })
+  @Field(() => String)
   customer_name: string;
 
   @Column('varchar', { length: 500 })
+  @Field(() => String)
   pesan_dukungan: string;
 
   @Column('varchar', { length: 500 })
+  @Field(() => String)
   email: string;
 
-  // @OneToMany(
-  //   () => PokemonEntity,
-  //   pokemon => pokemon.owner,
-  //   {
-  //     eager: true,
-  //     onDelete: 'CASCADE',
-  //   },
-  // )
-  // @Field(() => [PokemonEntity])
-  // pokemons: PokemonEntity[];
+  @Column('varchar', { length: 500, default: '' })
+  @Field(() => String)
+  url_pembayaran: string;
+
+  @Column({ default: TransaksiStatus.PENDING })
+  @Field(() => String)
+  status: TransaksiStatus;
+
+  @ManyToOne(() => UserEntity, { eager: false })
+  @Field(() => UserEntity, { nullable: true })
+  recipient: UserEntity;
+
+  @Column({ nullable: false })
+  @Field(() => String)
+  recipient_id: string;
+
+  @Column({ nullable: true })
+  @Field(() => String)
+  duitku_reference: string;
 }

@@ -1,6 +1,5 @@
 import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
-import { DeleteResult } from 'typeorm';
 
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';

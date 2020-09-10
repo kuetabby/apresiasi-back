@@ -15,6 +15,7 @@ export class UserDTO {
   @Field({ nullable: true }) readonly category?: number;
   @Field({ nullable: true }) readonly cover_img?: string;
   @Field({ nullable: true }) readonly is_page_active?: number;
+  @Field({ nullable: true }) readonly balance?: number;
 }
 
 @InputType()
