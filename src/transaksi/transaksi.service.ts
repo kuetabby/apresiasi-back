@@ -63,7 +63,7 @@ export class TransaksiService {
     dto: DuitkuRequestTransactionDto,
   ): Promise<DuitkuRequestTransactionResponse> {
     const body = {
-      merchantCode: '', //@TODO merchantCode dari dashboard duitku
+      merchantCode: process.env.MERCHANT_CODE, //@TODO merchantCode dari dashboard duitku
       paymentAmount: `${dto.paymentAmount}`,
       paymentMethod: 'VC',
       merchantOrderId: dto.merchantOrderId,
@@ -74,7 +74,7 @@ export class TransaksiService {
       callbackUrl: 'https://eaf8f32628db.ngrok.io/transaksi/callback', // @TODO ganti base url
       expiryPeriod: '60',
       signature: Crypto.MD5(
-        `D6194${dto.merchantOrderId}${dto.paymentAmount}${merchantKey}`, // @TODO merchantKey dari dashboar duitku
+        `D6194${dto.merchantOrderId}${dto.paymentAmount}${process.env.MERCHANT_KEY}`, // @TODO merchantKey dari dashboar duitku
       ).toString(),
     };
 

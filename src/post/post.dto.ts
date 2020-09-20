@@ -6,6 +6,7 @@ export class PostDTO {
   @Field() readonly tanggal?: Date;
   @Field() readonly title?: string;
   @Field() readonly announcement?: string;
+  @Field() readonly ownerId?: string;
 }
 
 @InputType()

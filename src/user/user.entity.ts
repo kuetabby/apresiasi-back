@@ -3,9 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  // OneToMany,
+  OneToMany,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
+import { PostEntity } from '../post/post.entity';
 
 @ObjectType()
 @Entity('User')
@@ -65,6 +66,16 @@ export class UserEntity extends BaseEntity {
   @Column('int', { default: 0 })
   @Field(() => Number)
   balance: number;
+
+  @OneToMany(
+    () => PostEntity,
+    post => post.owner,
+    {
+      eager: false,
+      onDelete: 'CASCADE',
+    },
+  )
+  posts: PostEntity[];
 
   // @OneToMany(
   //   () => PokemonEntity,

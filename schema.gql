@@ -62,6 +62,17 @@ type PostDTO {
   tanggal: DateTime!
   title: String!
   announcement: String!
+  ownerId: String!
+}
+
+type PostEntity {
+  id: String!
+  tanggal: String
+  title: String
+  announcement: String
+  post_img: String
+  owner: UserEntity!
+  ownerId: String!
 }
 
 input PostInput {
@@ -77,8 +88,8 @@ input PostInputUpdate {
 type Query {
   getUser: UserEntity!
   getAllUser: [UserDTO!]!
-  getPost(id: String!): PostDTO!
-  getAllPost: [PostDTO!]!
+  getPost: [PostEntity!]!
+  getAllPost: [PostEntity!]!
   getBankDetails(id: String!): BankDetailsDTO!
   getAllGender: [GenderDTO!]!
   getGender(id: String!): GenderDTO!

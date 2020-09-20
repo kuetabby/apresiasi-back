@@ -34,8 +34,10 @@ export class PostService {
     return post;
   }
 
-  findOneById(id: string): Promise<PostEntity> {
-    return this.postRepository.findOne({ id });
+  findById(id: string): Promise<PostEntity[]> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.postRepository.find({ ownerId: id });
   }
 
   findAll(): Promise<PostEntity[]> {

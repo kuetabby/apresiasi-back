@@ -19,6 +19,10 @@ import { TransaksiModule } from './transaksi/transaksi.module';
       autoSchemaFile: 'schema.gql',
       debug: true,
       playground: true,
+      cors: {
+        origin: '*',
+        credentials: true,
+      },
       context: ({ req }) => ({ headers: req.headers }),
     }),
     TypeOrmModule.forRoot({
