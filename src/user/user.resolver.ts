@@ -3,7 +3,7 @@ import { Inject, UseGuards } from '@nestjs/common';
 
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
-import { UserDTO, LoginResponseDTO, LoginInput } from './user.dto';
+import { UserDTO, UserInput, LoginResponseDTO, LoginInput } from './user.dto';
 import { AuthGuard } from './user.guard';
 
 @Resolver(() => UserEntity)
@@ -17,6 +17,12 @@ export class UserResolver {
   @UseGuards(AuthGuard)
   async getUser(@Context('user') user: UserEntity): Promise<UserEntity> {
     return this.userService.findOneByEmail(user.email);
+  }
+
+  @Query(() => UserEntity)
+  // @UseGuards(AuthGuard)
+  async getUserById(@Args('id') id: string): Promise<UserEntity> {
+    return this.userService.findOneById(id);
   }
 
   @Query(() => [UserDTO])
@@ -35,10 +41,14 @@ export class UserResolver {
     return this.userService.createToken(user.id, user.email);
   }
 
-  // @Mutation(() => UserDTO)
-  // async updateUser(@Args('data') data: UserInput): Promise<UserEntity> {
-  //   return await this.userService.update({ ...data });
-  // }
+  @Mutation(() => UserEntity)
+  @UseGuards(AuthGuard)
+  async updateUser(
+    @Args('data') data: UserInput,
+    @Context('user') user: UserEntity,
+  ): Promise<UserEntity> {
+    return await this.userService.update({ ...data }, user);
+  }
 
   // @Mutation(() => UserDTO)
   // async deleteUser(@Args('id') id: string): Promise<DeleteResult> {

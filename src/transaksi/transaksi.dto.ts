@@ -17,8 +17,9 @@ export class TransaksiInput {
   @Field() readonly customer_name: string;
   @Field() readonly pesan_dukungan: string;
   @Field() readonly email: string;
+  @Field() readonly phone_number: string;
+  @Field() readonly payment_method: string;
   @Field() readonly recipient_id: string;
-  @Field() readonly phoneNumber: string;
 }
 
 @InputType()
@@ -31,6 +32,7 @@ export class DuitkuRequestTransactionDto {
   merchantUserInfo: string;
   email: string;
   phoneNumber: string;
+  paymentMethod: string;
 }
 
 export class DuitkuRequestTransactionResponse {

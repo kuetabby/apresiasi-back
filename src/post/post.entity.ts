@@ -13,13 +13,13 @@ import { UserEntity } from '../user/user.entity';
 @ObjectType()
 @Entity('Post')
 export class PostEntity extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   @Field(() => String)
   id: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'datetime' })
   @CreateDateColumn()
-  @Field(() => String, { nullable: true })
+  @Field(() => Date, { nullable: true })
   tanggal: Date;
 
   @Column('varchar', { length: 500, nullable: true })

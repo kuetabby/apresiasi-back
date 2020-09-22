@@ -11,10 +11,11 @@ export class UserDTO {
   @Field({ nullable: true }) readonly username?: string;
   @Field({ nullable: true }) readonly judul?: string;
   @Field({ nullable: true }) readonly description?: string;
-  @Field({ nullable: true }) readonly target_dana?: number;
-  @Field({ nullable: true }) readonly category?: number;
+  @Field({ nullable: true }) readonly target_dana?: string;
+  @Field({ nullable: true }) readonly phone?: string;
+  @Field({ nullable: true }) readonly category?: string;
   @Field({ nullable: true }) readonly cover_img?: string;
-  @Field({ nullable: true }) readonly is_page_active?: number;
+  @Field({ nullable: true }) readonly is_page_active?: string;
   @Field({ nullable: true }) readonly balance?: number;
 }
 
@@ -28,10 +29,12 @@ class PageInput {
   @Field() readonly username?: string;
   @Field() readonly judul?: string;
   @Field() readonly description?: string;
-  @Field() readonly target_dana?: number;
+  @Field() readonly target_dana?: string;
+  @Field() readonly category?: string;
+  @Field() readonly phone?: string;
   @Field() readonly status?: string;
   @Field() readonly cover_img?: string;
-  @Field() readonly is_page_active?: number;
+  @Field() readonly is_page_active?: string;
 }
 
 @InputType()

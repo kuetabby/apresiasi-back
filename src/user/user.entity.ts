@@ -48,20 +48,24 @@ export class UserEntity extends BaseEntity {
   description: string;
 
   @Column('numeric', { nullable: true })
-  @Field(() => Number, { nullable: true })
-  target_dana: number;
+  @Field(() => String, { nullable: true })
+  target_dana: string;
 
   @Column('numeric', { nullable: true })
-  @Field(() => Number, { nullable: true })
-  category: number;
+  @Field(() => String, { nullable: true })
+  phone: string;
+
+  @Column('varchar', { nullable: true })
+  @Field(() => String, { nullable: true })
+  category: string;
 
   @Column('varchar', { length: 500, nullable: true })
   @Field(() => String, { nullable: true })
   cover_img: string;
 
-  @Column('numeric', { nullable: true })
-  @Field(() => Number, { nullable: true })
-  is_page_active: number;
+  @Column('varchar', { nullable: true })
+  @Field(() => String, { nullable: true })
+  is_page_active: string;
 
   @Column('int', { default: 0 })
   @Field(() => Number)

@@ -34,7 +34,8 @@ export class TransaksiService {
       merchantUserInfo: dto.customer_name,
       paymentAmount: dto.payment_amount,
       productDetails: dto.pesan_dukungan,
-      phoneNumber: dto.phoneNumber,
+      phoneNumber: dto.phone_number,
+      paymentMethod: dto.payment_method,
     });
 
     transaksi.url_pembayaran = inquryTrx.paymentUrl;
@@ -63,33 +64,44 @@ export class TransaksiService {
     dto: DuitkuRequestTransactionDto,
   ): Promise<DuitkuRequestTransactionResponse> {
     const body = {
-      merchantCode: process.env.MERCHANT_CODE, //@TODO merchantCode dari dashboard duitku
+      merchantCode: 'D6194', //@TODO merchantCode dari dashboard duitku
       paymentAmount: `${dto.paymentAmount}`,
-      paymentMethod: 'VC',
+      paymentMethod: dto.paymentMethod,
       merchantOrderId: dto.merchantOrderId,
       productDetails: dto.productDetails,
       merchantUserInfo: dto.merchantUserInfo,
       phoneNumber: dto.phoneNumber,
       email: dto.email,
-      callbackUrl: 'https://eaf8f32628db.ngrok.io/transaksi/callback', // @TODO ganti base url
+      callbackUrl: 'https://7fe3b34aaf7e.ngrok.io/transaksi/callback', // @TODO ganti base url
       expiryPeriod: '60',
       signature: Crypto.MD5(
-        `D6194${dto.merchantOrderId}${dto.paymentAmount}${process.env.MERCHANT_KEY}`, // @TODO merchantKey dari dashboar duitku
+        `D6194${dto.merchantOrderId}${dto.paymentAmount}397f3988f6ad9b82c7e7ed6a92c103e0`, // @TODO merchantKey dari dashboar duitku
       ).toString(),
     };
 
-    console.log(body);
+    try {
+      const res = await this.httpService.post<DuitkuRequestTransactionResponse>(
+        'https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry',
+        body,
+      );
+      const { data } = await res.toPromise();
+      console.log(data);
+      if (data.statusCode !== '00') {
+        throw InternalServerErrorException;
+      }
 
-    const res = await this.httpService.post<DuitkuRequestTransactionResponse>(
-      'https://sandbox.duitku.com/webapi/api/merchant/v2/inquiry',
-      body,
-    );
-    const { data } = await res.toPromise();
-
-    if (data.statusCode !== '00') {
-      throw InternalServerErrorException;
+      return data;
+    } catch (err) {
+      console.log(err.response.data);
+      throw err;
     }
+  }
 
-    return data;
+  async getCurrentUserTransaction(userId: string): Promise<TransaksiEntity[]> {
+    const transactions = await this.transaksiRepository.find({
+      recipient_id: userId,
+      status: TransaksiStatus.SUCCESS,
+    });
+    return transactions;
   }
 }

@@ -8,13 +8,13 @@ import {
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
-@Entity('Gender')
-export class GenderEntity extends BaseEntity {
+@Entity('Category')
+export class CategoryEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   @Field(() => String)
   id: string;
 
   @Column('varchar', { length: 500 })
   @Field(() => String)
-  gender: string;
+  category: string;
 }

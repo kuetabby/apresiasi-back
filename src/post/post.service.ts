@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository, DeleteResult } from 'typeorm';
 
 import { PostEntity } from './post.entity';
-import { PostDTO } from './post.dto';
+import { PostDTO, DeleteResponse } from './post.dto';
 
 @Injectable()
 export class PostService {
@@ -24,20 +24,28 @@ export class PostService {
     return post;
   }
 
-  async delete(id: string): Promise<DeleteResult> {
+  async delete(id: string): Promise<DeleteResponse> {
     const post = await this.postRepository.delete({ id });
 
     if (post.affected === 0) {
       throw new NotFoundException(`ID ${id} not found`);
     }
 
-    return post;
+    return {
+      deleted: 'deleted!',
+    };
   }
 
   findById(id: string): Promise<PostEntity[]> {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return this.postRepository.find({ ownerId: id });
+  }
+
+  findOneById(id: string): Promise<PostEntity> {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return this.postRepository.findOne({ id });
   }
 
   findAll(): Promise<PostEntity[]> {

@@ -29,6 +29,25 @@ export class UserService {
     return this.userRepository.create({ ...data }).save();
   }
 
+  async update(data: UserDTO, user: UserEntity): Promise<UserEntity> {
+    const post = await this.userRepository.findOne(user.id);
+    post.name = data.name;
+    post.username = data.username;
+    post.profile_img = data.profile_img;
+    post.gender = data.gender;
+    post.category = data.category;
+    post.address = data.address;
+    post.judul = data.judul;
+    post.description = data.description;
+    post.target_dana = data.target_dana;
+    post.cover_img = data.cover_img;
+    post.is_page_active = data.is_page_active;
+    post.phone = data.phone;
+
+    await post.save();
+    return post;
+  }
+
   findOneById(id: string): Promise<UserEntity> {
     return this.userRepository.findOne({ id });
   }
@@ -72,24 +91,3 @@ export class UserService {
   //   return user;
   // }
 }
-
-//   findOneById(userId: string): Promise<UserEntity> {
-//     return this.usersRepository.findOne(userId);
-//   }
-
-//   findAll(): Promise<UserEntity[]> {
-//     return this.usersRepository.find();
-//   }
-
-//   findByName(name: string): Promise<UserEntity> {
-//     return this.usersRepository.findOne({ name });
-//   }
-
-//   findByEmail(email: string): Promise<UserEntity> {
-//     return this.usersRepository.findOne({ email });
-//   }
-
-//   create(data: UserDTO): Promise<UserEntity> {
-//     return this.usersRepository.create({ ...data }).save();
-//   }
-// }

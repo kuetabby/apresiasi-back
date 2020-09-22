@@ -1,8 +1,13 @@
 import { Resolver, Context, Query, Args, Mutation } from '@nestjs/graphql';
 import { Inject, UseGuards } from '@nestjs/common';
-import { DeleteResult } from 'typeorm';
+// import { DeleteResult } from 'typeorm';
 
-import { PostDTO, PostInput, PostInputUpdate } from './post.dto';
+import {
+  PostDTO,
+  PostInput,
+  PostInputUpdate,
+  DeleteResponse,
+} from './post.dto';
 import { PostEntity } from './post.entity';
 import { PostService } from './post.service';
 
@@ -22,6 +27,12 @@ export class PostResolver {
     return this.postService.findById(user.id);
   }
 
+  @Query(() => PostEntity)
+  @UseGuards(AuthGuard)
+  async getPostById(@Args('id') id: string): Promise<PostEntity> {
+    return this.postService.findOneById(id);
+  }
+
   @Query(() => [PostEntity])
   async getAllPost(): Promise<PostEntity[]> {
     return await this.postService.findAll();
@@ -38,13 +49,14 @@ export class PostResolver {
     return post;
   }
 
-  @Mutation(() => PostDTO)
+  @Mutation(() => PostEntity)
+  @UseGuards(AuthGuard)
   async updatePost(@Args('data') data: PostInputUpdate): Promise<PostEntity> {
     return await this.postService.update({ ...data });
   }
 
-  @Mutation(() => PostDTO)
-  async deletePost(@Args('id') id: string): Promise<DeleteResult> {
+  @Mutation(() => DeleteResponse)
+  async deletePost(@Args('id') id: string): Promise<DeleteResponse> {
     return await this.postService.delete(id);
   }
 }

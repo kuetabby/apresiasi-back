@@ -9,6 +9,11 @@ export class PostDTO {
   @Field() readonly ownerId?: string;
 }
 
+@ObjectType()
+export class DeleteResponse {
+  @Field() readonly deleted: string;
+}
+
 @InputType()
 export class PostInput {
   @Field() readonly title?: string;
@@ -16,4 +21,6 @@ export class PostInput {
 }
 
 @InputType()
-export class PostInputUpdate extends PartialType(PostInput) {}
+export class PostInputUpdate extends PartialType(PostInput) {
+  @Field() readonly id?: string;
+}
