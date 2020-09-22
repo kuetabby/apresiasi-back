@@ -27,9 +27,9 @@ export class TransaksiEntity extends BaseEntity {
   @Field(() => Date)
   payment_tanggal: Date;
 
-  @Column('int')
-  @Field(() => Number)
-  payment_amount: number;
+  @Column('varchar', { default: '' })
+  @Field(() => String)
+  payment_amount: string;
 
   @Column('varchar', { length: 500 })
   @Field(() => String)

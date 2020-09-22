@@ -3,7 +3,7 @@ import { Field, ObjectType, InputType, PartialType } from '@nestjs/graphql';
 @ObjectType()
 export class TransaksiDTO {
   @Field() readonly id: string;
-  @Field() readonly payment_amount: number;
+  @Field() readonly payment_amount: string;
   @Field() readonly payment_method: string;
   @Field() readonly customer_name: string;
   @Field() readonly pesan_dukungan: string;
@@ -13,7 +13,7 @@ export class TransaksiDTO {
 
 @InputType()
 export class TransaksiInput {
-  @Field() readonly payment_amount: number;
+  @Field() readonly payment_amount: string;
   @Field() readonly customer_name: string;
   @Field() readonly pesan_dukungan: string;
   @Field() readonly email: string;
@@ -26,7 +26,7 @@ export class TransaksiInput {
 export class TransaksiInputUpdate extends PartialType(TransaksiInput) {}
 
 export class DuitkuRequestTransactionDto {
-  paymentAmount: number;
+  paymentAmount: string;
   merchantOrderId: string;
   productDetails: string;
   merchantUserInfo: string;

@@ -55,7 +55,7 @@ export class TransaksiService {
       transaksi.save(),
       this.userService.sumBalance(
         transaksi.recipient_id,
-        transaksi.payment_amount,
+        parseInt(transaksi.payment_amount),
       ),
     ]);
   }
@@ -72,7 +72,7 @@ export class TransaksiService {
       merchantUserInfo: dto.merchantUserInfo,
       phoneNumber: dto.phoneNumber,
       email: dto.email,
-      callbackUrl: 'https://56cd03e27ab1.ngrok.io /transaksi/callback', // @TODO ganti base url
+      callbackUrl: 'https://e5e026087b5b.ngrok.io/transaksi/callback', // @TODO ganti base url
       expiryPeriod: '60',
       signature: Crypto.MD5(
         `D6194${dto.merchantOrderId}${dto.paymentAmount}397f3988f6ad9b82c7e7ed6a92c103e0`, // @TODO merchantKey dari dashboar duitku

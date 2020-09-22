@@ -124,7 +124,7 @@ type Query {
 type TransaksiEntity {
   id: String!
   payment_tanggal: DateTime!
-  payment_amount: Float!
+  payment_amount: String!
   customer_name: String!
   pesan_dukungan: String!
   email: String!
@@ -136,7 +136,7 @@ type TransaksiEntity {
 }
 
 input TransaksiInput {
-  payment_amount: Float!
+  payment_amount: String!
   customer_name: String!
   pesan_dukungan: String!
   email: String!
