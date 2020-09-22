@@ -4,7 +4,7 @@ import { Field, ObjectType, InputType, PartialType } from '@nestjs/graphql';
 export class UserDTO {
   @Field() readonly id?: string;
   @Field({ nullable: true }) readonly name?: string;
-  @Field({ nullable: true }) readonly gender?: number;
+  @Field({ nullable: true }) readonly gender?: string;
   @Field({ nullable: true }) readonly email?: string;
   @Field({ nullable: true }) readonly address?: string;
   @Field({ nullable: true }) readonly profile_img?: string;
@@ -22,7 +22,7 @@ export class UserDTO {
 @InputType()
 class PageInput {
   @Field() readonly name?: string;
-  @Field() readonly gender?: number;
+  @Field() readonly gender?: string;
   @Field() readonly email?: string;
   @Field() readonly address?: string;
   @Field() readonly profile_img?: string;

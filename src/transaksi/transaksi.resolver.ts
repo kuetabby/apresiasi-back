@@ -20,6 +20,13 @@ export class TransaksiResolver {
   }
 
   @Query(() => [TransaksiEntity])
+  async getCurrentUserTransactionById(
+    @Args('id') id: string,
+  ): Promise<TransaksiEntity[]> {
+    return this.transaksiService.getCurrentUserTransaction(id);
+  }
+
+  @Query(() => [TransaksiEntity])
   @UseGuards(AuthGuard)
   async getCurrentUserTransaction(
     @Context('user') user: UserEntity,

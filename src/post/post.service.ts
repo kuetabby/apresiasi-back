@@ -20,6 +20,7 @@ export class PostService {
     const post = await this.postRepository.findOne(data.id);
     post.title = data.title;
     post.announcement = data.announcement;
+    post.post_img = data.post_img;
     await post.save();
     return post;
   }

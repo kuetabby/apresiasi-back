@@ -22,6 +22,10 @@ export class PostResolver {
   ) {}
 
   @Query(() => [PostEntity])
+  async getPostByIdParam(@Args('id') id: string): Promise<PostEntity[]> {
+    return this.postService.findById(id);
+  }
+  @Query(() => [PostEntity])
   @UseGuards(AuthGuard)
   async getPost(@Context('user') user: UserEntity): Promise<PostEntity[]> {
     return this.postService.findById(user.id);
@@ -44,7 +48,6 @@ export class PostResolver {
     @Args('data') data: PostInput,
     @Context('user') user: UserEntity,
   ): Promise<PostEntity> {
-    console.log(user);
     const post = await this.postService.create({ ...data, ownerId: user.id });
     return post;
   }

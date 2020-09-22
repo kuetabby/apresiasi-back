@@ -77,6 +77,7 @@ type PostDTO {
   tanggal: DateTime!
   title: String!
   announcement: String!
+  post_img: String!
   ownerId: String!
 }
 
@@ -93,11 +94,13 @@ type PostEntity {
 input PostInput {
   title: String!
   announcement: String!
+  post_img: String!
 }
 
 input PostInputUpdate {
   title: String
   announcement: String
+  post_img: String
   id: String!
 }
 
@@ -105,12 +108,14 @@ type Query {
   getUser: UserEntity!
   getUserById(id: String!): UserEntity!
   getAllUser: [UserDTO!]!
+  getPostByIdParam(id: String!): [PostEntity!]!
   getPost: [PostEntity!]!
   getPostById(id: String!): PostEntity!
   getAllPost: [PostEntity!]!
   getBankDetails(id: String!): BankDetailsDTO!
   getAllGender: [GenderDTO!]!
   getGender(id: String!): GenderDTO!
+  getCurrentUserTransactionById(id: String!): [TransaksiEntity!]!
   getCurrentUserTransaction: [TransaksiEntity!]!
   getAllCategory: [CategoryDTO!]!
   getCategory(id: String!): CategoryDTO!
@@ -143,7 +148,7 @@ input TransaksiInput {
 type UserDTO {
   id: String!
   name: String
-  gender: Float
+  gender: String
   email: String
   address: String
   profile_img: String
@@ -178,7 +183,7 @@ type UserEntity {
 
 input UserInput {
   name: String
-  gender: Float
+  gender: String
   email: String
   address: String
   profile_img: String

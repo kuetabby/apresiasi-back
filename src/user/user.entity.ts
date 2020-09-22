@@ -23,9 +23,9 @@ export class UserEntity extends BaseEntity {
   @Field(() => String)
   name: string;
 
-  @Column('numeric', { nullable: true })
+  @Column('varchar', { nullable: true })
   @Field(() => String, { nullable: true })
-  gender: number;
+  gender: string;
 
   @Column('varchar', { length: 500, nullable: true })
   @Field(() => String, { nullable: true })

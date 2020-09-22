@@ -6,6 +6,7 @@ export class PostDTO {
   @Field() readonly tanggal?: Date;
   @Field() readonly title?: string;
   @Field() readonly announcement?: string;
+  @Field() readonly post_img?: string;
   @Field() readonly ownerId?: string;
 }
 
@@ -18,6 +19,7 @@ export class DeleteResponse {
 export class PostInput {
   @Field() readonly title?: string;
   @Field() readonly announcement?: string;
+  @Field() readonly post_img?: string;
 }
 
 @InputType()
